@@ -212,7 +212,7 @@ public class CardService {
 		for(Card c : players.get(player)){
 			page += "<div class='card'><div class='cardname'>"+c.getName()+"</div><div class='carddesc'>" + c.getDescription() +"</div>";
 
-			page += "<button id='play"+c.getId()+"'>Play/Discard</button></div>";
+			page += "<button id='play"+c.getId()+"'>Play/Discard</button>";
 			page+="<script>";
 			page+="$('#play"+c.getId()+"').click(function(){";
 			//page+="$.get( \"http://localhost:8080/TriumphAndTreachery/cards/"+player+"/discard/"+c.getId()+"\", function( data ) {";
@@ -224,9 +224,9 @@ public class CardService {
 
 			for(String p : players.keySet()){
 				if(!p.equals(player)){
-					page += "<button id='play"+c.getId()+"'>Give to "+p+"</button></div>";
+					page += "<button id='#give_"+p+"_"+c.getId()+"'>Give to "+p+"</button>";
 					page+="<script>";
-					page+="$('#play"+c.getId()+"').click(function(){";
+					page+="$('#give_"+p+"_"+c.getId()+"').click(function(){";
 					page+="$.get( \"/cards/"+player+"/give/"+p+"/"+c.getId()+"\", function( data ) {";
 					page+="location.reload();";
 					page+="});";
@@ -234,6 +234,8 @@ public class CardService {
 					page+="</script>";
 				}
 			}
+			
+			page+="</div>";
 		}
 
 
