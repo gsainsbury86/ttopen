@@ -224,7 +224,7 @@ public class CardService {
 
 			for(String p : players.keySet()){
 				if(!p.equals(player)){
-					page += "<button id='#give_"+p+"_"+c.getId()+"'>Give to "+p+"</button>";
+					page += "<button id='give_"+p+"_"+c.getId()+"'>Give to "+p+"</button>";
 					page+="<script>";
 					page+="$('#give_"+p+"_"+c.getId()+"').click(function(){";
 					page+="$.get( \"/cards/"+player+"/give/"+p+"/"+c.getId()+"\", function( data ) {";
