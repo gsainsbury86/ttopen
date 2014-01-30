@@ -126,7 +126,7 @@ public class CardService {
 	@Produces("text/html;charset=UTF-8;version=1")
 	public String player(@PathParam("player") String player){
 		String page = "<html><head></head><body><script src=\"http://code.jquery.com/jquery-latest.min.js\" type=\"text/javascript\"></script>";
-
+		page += "<link href=\"tant_styles.css\" rel=\"Stylesheet\" />";
 		// change a to button which gets/posts then refreshes
 		
 		page += "<div class='name'>"+player+"</div>";
@@ -135,7 +135,8 @@ public class CardService {
 
 		page+="<script>";
 		page+="$('#draw').click(function(){";
-		page+="$.get( \"http://localhost:8080/TriumphAndTreachery/cards/"+player+"/draw\", function( data ) {";
+		//page+="$.get( \"http://localhost:8080/TriumphAndTreachery/cards/"+player+"/draw\", function( data ) {";
+		page+="$.get( \"/cards/"+player+"/draw\", function( data ) {";
 		page+="location.reload();";
 		page+="});";
 		page+="});";
@@ -148,7 +149,8 @@ public class CardService {
 			page += "<button id='play"+c.getId()+"'>Play/Discard</button></div>";
 			page+="<script>";
 			page+="$('#play"+c.getId()+"').click(function(){";
-			page+="$.get( \"http://localhost:8080/TriumphAndTreachery/cards/"+player+"/discard/"+c.getId()+"\", function( data ) {";
+			//page+="$.get( \"http://localhost:8080/TriumphAndTreachery/cards/"+player+"/discard/"+c.getId()+"\", function( data ) {";
+			page+="$.get( \"/cards/"+player+"/discard/"+c.getId()+"\", function( data ) {";
 			page+="location.reload();";
 			page+="});";
 			page+="});";
