@@ -122,13 +122,20 @@ public class CardService {
 	}
 
 	@GET
+	@Path("tant_styles.css")
+	@Produces("text/html")
+	public String css(){
+		return ".card{position:relative;float:left;width:200px;height:350px;background-color:#FFFCDF;border-width:2px;border-style:solid;margin:0px 2px 0px 2px;border-radius:10px;}.cardname{text-align:center;font: 1.1em \"Lucida Grande\", \"Trebuchet MS\", Verdana, sans-serif;}.carddesc{margin-top:20px;margin-left:20px;font: 0.9em \"Lucida Grande\", \"Trebuchet MS\", Verdana, sans-serif;}.card button{width:90px;position:absolute;bottom:10px;right:5px;}";
+	}
+
+	@GET
 	@Path("{player}")
 	@Produces("text/html;charset=UTF-8;version=1")
 	public String player(@PathParam("player") String player){
 		String page = "<html><head></head><body><script src=\"http://code.jquery.com/jquery-latest.min.js\" type=\"text/javascript\"></script>";
 		page += "<link href=\"tant_styles.css\" rel=\"Stylesheet\" />";
 		// change a to button which gets/posts then refreshes
-		
+
 		page += "<div class='name'>"+player+"</div>";
 
 		page += "<button id='draw'>draw</button>";
@@ -156,7 +163,7 @@ public class CardService {
 			page+="});";
 			page+="</script>";
 		}
-		
+
 
 
 		page+="</body></html>";
