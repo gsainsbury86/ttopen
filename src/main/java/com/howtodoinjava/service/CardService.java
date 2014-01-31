@@ -40,8 +40,8 @@ public class CardService {
 	@Produces("text/html;charset=UTF-8;version=1")
 	public String adminView() {
 		String toreturn = "Players: " + players.toString();
-		toreturn = "Deck: " + deck.toString();
-		toreturn = "Discard: " + discard.toString();
+		toreturn += "Deck: " + deck.toString();
+		toreturn += "Discard: " + discard.toString();
 		return toreturn;
 		
 	}
@@ -65,7 +65,8 @@ public class CardService {
 	@GET
 	@Path("/newGame")
 	@Produces("text/html;charset=UTF-8;version=1")
-	private void reset() {
+	public String reset() {
+		
 		players = new HashMap<String,ArrayList<Card>>();
 		allCards = new ArrayList<Card>();
 		deck = new ArrayList<Card>();
@@ -117,6 +118,12 @@ public class CardService {
 		}
 
 		Collections.shuffle(deck);
+		
+		String toreturn = "Players: " + players.toString();
+		toreturn += "Deck: " + deck.toString();
+		toreturn += "Discard: " + discard.toString();
+		return toreturn;
+		
 	}
 
 	@GET
