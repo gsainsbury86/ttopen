@@ -34,14 +34,22 @@ public class CardService {
 	public String hello() {
 		return "Hello World";
 	}
+	
+	@GET
+	@Path("/admin")
+	@Produces("text/html;charset=UTF-8;version=1")
+	public String adminView() {
+		String toreturn = "Players: " + players.toString();
+		toreturn = "Deck: " + deck.toString();
+		toreturn = "Discard: " + discard.toString();
+		return toreturn;
+		
+	}
 
 	@GET
 	@Path("/getPlayers")
 	@Produces("text/html;charset=UTF-8;version=1")
 	public String getPlayers(){
-
-		reset();
-
 
 		String page = "<html><head></head><body>";
 
@@ -54,6 +62,9 @@ public class CardService {
 	}
 
 
+	@GET
+	@Path("/newGame")
+	@Produces("text/html;charset=UTF-8;version=1")
 	private void reset() {
 		players = new HashMap<String,ArrayList<Card>>();
 		allCards = new ArrayList<Card>();
@@ -63,7 +74,6 @@ public class CardService {
 		players.put("George",new ArrayList<Card>());
 		players.put("Ben",new ArrayList<Card>());
 		players.put("Tyson",new ArrayList<Card>());
-
 
 		allCards.add(new Card(0, "Alliance", "Play if a player with an army of the same alignment (see the Warhammer rulebook) picks you as the enemy player. That player must pick a different enemy player."));
 		allCards.add(new Card(1, "Sabotage", "Play in the Shooting phase when a war machine is picked to make a shooting attack. It may not shoot that phase."));
@@ -237,9 +247,7 @@ public class CardService {
 			
 			page+="</div>";
 		}
-
-
-
+		
 		page+="</body></html>";
 		return page;
 
