@@ -23,6 +23,7 @@ public class CardService {
 	static ArrayList<Card> deck;
 	static ArrayList<Card> discard;
 	static HashMap<String,ArrayList<Card>> players;
+	static String log;
 
 	public CardService(){
 
@@ -39,9 +40,25 @@ public class CardService {
 	@Path("/admin")
 	@Produces("text/html;charset=UTF-8;version=1")
 	public String adminView() {
-		String toreturn = "Players: " + players.toString();
-		toreturn += "Deck: " + deck.toString();
-		toreturn += "Discard: " + discard.toString();
+		String toreturn = log+"\n\n\n";
+
+		for(String p : players.keySet()){
+			toreturn += p + " : ";
+			for(Card c : players.get(p)){
+				toreturn += c.getId() + ",";
+			}
+		}
+		
+		toreturn += "Deck : ";
+		for( Card c : deck){
+			toreturn += c.getId();
+		}
+		
+		toreturn += "Discard : ";
+		for( Card c : discard){
+			toreturn += c.getId();
+		}
+		
 		return toreturn;
 		
 	}
@@ -66,6 +83,8 @@ public class CardService {
 	@Path("/newGame")
 	@Produces("text/html;charset=UTF-8;version=1")
 	public String reset() {
+		
+		log = "Started\n";
 		
 		players = new HashMap<String,ArrayList<Card>>();
 		allCards = new ArrayList<Card>();
@@ -105,7 +124,7 @@ public class CardService {
 		allCards.add(new Card(26,"Duplicitous Mage","Play in the Magic phase when a Wizard is nominated to cast a spell. Discard two brass Victory Tokens to stop the Wizard from casting any spells for the remainder of that phase."));
 		allCards.add(new Card(27,"Oil Slick","Play at the start of a round of combat that takes place within 12\" of one of your units. All models involved in that combat must re-roll successful To Hit rolls."));
 		allCards.add(new Card(28,"Cunning Ruse","Play at the start of the Close Combat phase. Pick one of your units. All models in that Unit have +1 Initative for that phase."));
-		allCards.add(new Card(29,"Look Behind You!","Play at the start of the Shooting of Close Combat phase. Nominate one non-friendly unit. All models in that unit must re-roll successful armour saves that phase."));
+		allCards.add(new Card(29,"Look Behind You!","Play at the start of the Shooting or Close Combat phase. Nominate one non-friendly unit. All models in that unit must re-roll successful armour saves that phase."));
 		allCards.add(new Card(30,"Dirty Trick","Play when the combat result score is being calculated for a combat. Add +1 to the combat result score fof the side of your choice."));
 		allCards.add(new Card(31,"Ancient Enmity","Play if a player with an army of the same alignment or a non-aligned army (see the Warhammer rulebook) picks you as the enemy player. The player must pick a different enemy player."));
 		allCards.add(new Card(32,"Paranoia","Play if a player picks you as the enemy player. The player must pick a different enemy player."));
@@ -145,6 +164,8 @@ public class CardService {
 		Card c = deck.remove(0);
 
 		players.get(player).add(c);
+		
+		log += player + " draws " + c.getId() + "\n";
 	}
 
 	@GET
@@ -168,6 +189,9 @@ public class CardService {
 		}
 
 		discard.add(card);
+		
+		log += player + " discards " + card.getId() + "\n";
+
 	}
 	
 	@GET
@@ -193,6 +217,9 @@ public class CardService {
 		ArrayList<Card> t = players.get(to);
 		
 		t.add(card);
+		
+		log += player + " gives " + card.getId() + " to " + t + "\n";
+
 
 	}
 
