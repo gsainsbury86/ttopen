@@ -40,7 +40,7 @@ public class CardService {
 	@Path("/admin")
 	@Produces("text/html;charset=UTF-8;version=1")
 	public String adminView() {
-		String toreturn = log+"\n\n\n";
+		String toreturn = log+"\r\n\r\n\r\n";
 
 		for(String p : players.keySet()){
 			toreturn += p + " : ";
@@ -49,14 +49,15 @@ public class CardService {
 			}
 		}
 		
-		toreturn += "Deck : ";
+		toreturn += "\r\nDeck : ";
 		for( Card c : deck){
-			toreturn += c.getId();
+			toreturn += c.getId() + ",";
 		}
 		
-		toreturn += "Discard : ";
+		
+		toreturn += "\r\nDiscard : ";
 		for( Card c : discard){
-			toreturn += c.getId();
+			toreturn += c.getId() + ",";
 		}
 		
 		return toreturn;
@@ -138,10 +139,8 @@ public class CardService {
 
 		Collections.shuffle(deck);
 		
-		String toreturn = "Players: " + players.toString();
-		toreturn += "Deck: " + deck.toString();
-		toreturn += "Discard: " + discard.toString();
-		return toreturn;
+		
+		return "New Game: " + players.keySet();
 		
 	}
 
